@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/sign_layout">
+<head>
+    <title> Recipe </title>
+</head>
+
+
+<th:block layout:fragment="css">
+    <link rel="stylesheet" href="/css/login.css"/>
+</th:block>
+
+<div layout:fragment="content">
+    <div class="container" style="text-align:start;">
+        <div class="row">
+
+            <div class="col-md-12 order-md-1">
+                <h4 class="mb-3"> Edit Recipe </h4>
+                <form class="needs-validation" novalidate method="post" th:action="@{/recipe/saveEditedRecipe}"
+                      th:object="${recipe}" enctype="multipart/form-data">
+
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">ID: </label>
+                        <div class="col-8">
+                            <input type="text" th:field="*{id}" class="form-control" readonly/>
+                            <span th:if="${#fields.hasErrors('id')}" th:errors="*{id}" class="error"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Recipe Title: </label>
+                        <div class="col-8">
+                            <input type="text" th:field="*{recipeTitle}" class="form-control"/>
+                            <span th:if="${#fields.hasErrors('recipeTitle')}" th:errors="*{recipeTitle}"
+                                  class="error"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Description: </label>
+                        <div class="col-8">
+                            <textarea rows="5" cols="25" id="recipeDescription" th:field="*{recipeDescription}"
+                                      class="form-control"></textarea>
+
+                            <span th:if="${#fields.hasErrors('recipeDescription')}" th:errors="*{recipeDescription}"
+                                  class="error"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Cooking Time: </label>
+                        <div class="col-8">
+                            <input type="text" th:field="*{cookingTime}" class="form-control"/>
+                            <span th:if="${#fields.hasErrors('cookingTime')}" th:errors="*{cookingTime}"
+                                  class="error"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Photo path: </label>
+                        <div class="col-8">
+                            <input type="text" th:field="*{photos}" class="form-control"/>
+                            <span th:if="${#fields.hasErrors('photos')}" th:errors="*{photos}"
+                                  class="error"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label">Category: </label>
+                        <div class="col-8">
+                            <select class="form-control" id="dropOperator" th:field="*{recipeCategory}">
+                                <option value="">select recipe cat</option>
+                                <option th:each="recipeCat : ${recipeCategories}" th:value="${recipeCat.id}"
+                                        th:text="${recipeCat.catDescription}"
+                                        th:selected="${recipeCat.id == recipe.recipeCategory.id}"></option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <!--            <div class="form-group row">-->
+                    <!--              <label class="col-4 col-form-label">Point: </label>-->
+                    <!--              <div class="col-8">-->
+                    <!--                <input type="text" th:field="*{point}" class="form-control"/>-->
+                    <!--                <span th:if="${#fields.hasErrors('point')}" th:errors="*{point}" class="error"></span>-->
+                    <!--              </div>-->
+                    <!--            </div>-->
+                    <!--            <div class="form-group row">-->
+                    <!--              <label class="col-4 col-form-label">Photo: </label>-->
+                    <!--              <div class="col-8">-->
+                    <!--                <input type="file" name="image" accept="image/png, image/jpeg"/>-->
+                    <!--                <span th:if="${#fields.hasErrors('photos')}" th:errors="*{photos}" class="error"></span>-->
+                    <!--              </div>-->
+                    <!--            </div>-->
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+  
+  <header th:fragment="menuFragment">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark site-recipe">
+      <div class="container">
+        <a class="navbar-brand" href="/"> <i class="fa fa-home"></i> </a>
+        <a class="navbar-brand" href="/recipe"> Recipe Site </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample03"
+                aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarsExample03">
+          <ul class="navbar-nav mr-auto">
+            <li>
+              <a class="nav-link" href="/user"> User <span class="sr-only">(current)</span></a>
+            </li>
+          </ul>
+          <ul class="navbar-nav right-menus">
+            <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+              <a class="nav-link dropdown-toggle active" href="#"
+                 id="user-menus" data-toggle="dropdown"
+                 aria-haspopup="false" aria-expanded="false">
+                <i class="fa fa-user"></i>
+                <span sec:authentication="name"> KARO </span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="user-menus">
+                <a class="dropdown-item" href="#"> My account </a>
+                <form th:action="@{/logout}" method="post" class="dropdown-item">
+                  <input type="submit" value="Log Out" style="background:none; border: none" class="dropdown-item"/>
+                </form>
+              </div>
+            </li>
+            <a class="nav-item btn btn-danger" href="/login?site=user" sec:authorize="!isAuthenticated()">
+              User Login
+            </a>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+</html>

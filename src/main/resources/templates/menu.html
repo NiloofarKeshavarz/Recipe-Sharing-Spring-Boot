@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+<header th:fragment="menuFragment">
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark site-recipe">
+    <div class="container">
+      <a class="navbar-brand" href="/"> EAT WHAT </a>
+
+      <ul class="navbar-nav right-menus">
+        <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+          <a
+              class="nav-link dropdown-toggle active"
+              href="#"
+              id="user-menus"
+              data-toggle="dropdown"
+              aria-haspopup="false"
+              aria-expanded="false"
+          >
+            <i class="fa fa-user"></i>
+            <span sec:authentication="name"> KARO </span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="user-menus">
+            <a class="dropdown-item" href="#"> My account </a>
+            <a class="dropdown-item" href="/logout"> Log Out </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+</html>

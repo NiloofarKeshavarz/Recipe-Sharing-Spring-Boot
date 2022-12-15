@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/user/layout">
+<head>
+  <title> User Site </title>
+</head>
+
+<div layout:fragment="content">
+  <div class="container">
+    <div class="row mb-3 text-center" style="margin-top: 3em;">
+      <div class="col mb-4 shadow-sm">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal"> List of Recipe </h4>
+        </div>
+        <div class="card-body">
+          <div class="text-right">
+            <a href="/recipe/showCreateRecipe">
+              <button type="button" class="btn btn-outline-primary">Create New Recipe</button>
+            </a>
+          </div>
+          <div class="text-right">
+          </div>
+          <div>
+            <table class="table table-hover table-striped table-bordered">
+              <thead class="thead-dark">
+              <tr>
+                <th>Number</th>
+                <th>Author</th>
+                <th>Photo</th>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Detail</th>
+                <th>Edit</th>
+                <th>Delete</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="recipe : ${listRecipes}">
+                <td th:text="${recipeStat.index}+1" class="align-middle"></td>
+                <td th:text="${recipe.user.username}" class="align-middle"></td>
+                <td>
+                  <img th:src="@{${recipe.photos}}" class="img-fluid rounded"
+                       style="width: 50px; height: auto"/>
+                </td>
+                <td th:text="${recipe.recipeTitle}" class="align-middle"></td>
+                <td th:text="${recipe.recipeCategory.catDescription}" class="align-middle"></td>
+                <td class="align-middle">
+                  <button type="button" class="btn btn-primary" data-toggle="modal" th:href="'#recipe'+${recipe.id}">
+                    Detail
+                  </button>
+                </td>
+                <td class="align-middle">
+                  <a th:href="@{'/recipe/edit/' + ${recipe.id}}">
+                    <button type="button" class="btn btn-outline-primary">Edit</button>
+                  </a>
+                </td>
+                <td class="align-middle">
+                  <a th:href="@{'/recipe/delete/' + ${recipe.id}}">
+                    <button type="button" class="btn btn-outline-primary">Delete</button>
+                  </a>
+                </td>
+                <!-- Modal -->
+                <div class="modal fade" th:id="'recipe'+${recipe.id}" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalLongTitle" aria-hidden="true"
+                     style="backdrop-filter: blur(10px)">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle" th:text="${recipe.recipeTitle}"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body" th:text="${recipe.recipeDescription}">
+                        ...
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3 text-center" style="margin-top: 3em;">
+      <div class="col mb-4 shadow-sm">
+        <div class="card-header">
+          <h4 class="my-0 font-weight-normal"> Account of
+            <span sec:authentication="name"> KARO </span>
+          </h4>
+        </div>
+        <div class="card-body">
+          <div>
+            <a th:href="@{'/user/delete/' + ${user.getId()}}">
+              <button type="button" class="btn btn-outline-primary">Delete Account</button>
+            </a>
+            <a th:href="@{'/user/edit/' + ${user.getId()}}">
+              <button type="button" class="btn btn-outline-primary">Edit User Info</button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</html>

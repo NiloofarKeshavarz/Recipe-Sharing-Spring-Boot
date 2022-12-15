@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/sign_layout">
+  <head>
+    <title> User </title>
+  </head>
+  
+  <th:block layout:fragment="css">
+    <link rel="stylesheet" href="/css/login.css"/>
+  </th:block>
+  
+  <div layout:fragment="content">
+    <div class="container" style="text-align:start;">
+      <div class="row">
+        
+        <div class="col-md-12 order-md-1">
+          <h4 class="mb-3"> Register User </h4>
+          <form class="needs-validation" novalidate method="post"
+                th:action="@{/register/save}" th:object="${user}"
+                enctype="multipart/form-data">
+            
+            <div class="m-3">
+              <div class="form-group row">
+                <label class="col-4 col-form-label">User Name(ID): </label>
+                <div class="col-8">
+                  <input type="text" th:field="*{username}" class="form-control"/>
+                  <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"
+                        class="error"></span>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-4 col-form-label">Email: </label>
+                <div class="col-8">
+                  <input type="email" th:field="*{userEmail}" class="form-control"/>
+                  <span th:if="${#fields.hasErrors('userEmail')}" th:errors="*{userEmail}"
+                        class="error"></span>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-4 col-form-label">Password: </label>
+                <div class="col-8">
+                  <input type="password" th:field="*{tempPassword}" class="form-control"/>
+                  <span th:if="${#fields.hasErrors('tempPassword')}" th:errors="*{tempPassword}"
+                        class="error"></span>
+                </div>
+              </div>
+                <div class="form-group row">
+                    <label class="col-4 col-form-label">Retype Password: </label>
+                    <div class="col-8">
+                        <input type="password" th:field="*{confirmPassword}" class="form-control"/>
+                        <span th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"
+                              class="error"></span>
+                    </div>
+                </div>
+              <div class="form-group row">
+<!--                <label class="col-4 col-form-label">Auth: </label>-->
+                <div class="col-8">
+                  <input type="hidden" th:field="*{auth}" value="User" placeholder="User">
+                </div>
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary">Register</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</html>
